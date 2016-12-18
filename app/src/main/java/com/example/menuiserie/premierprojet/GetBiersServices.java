@@ -20,69 +20,82 @@ import static android.content.ContentValues.TAG;
 
 
 
-public class GetBiersServices extends IntentService {
+public class GetBiersServices extends IntentService
+{
 
     private static final String ACTION_GET_ALL_BIERS = "com.example.menuiserie.premierprojet.action.GET_ALL_BEARS";
 
 
-    public GetBiersServices() {
+    public GetBiersServices()
+    {
         super("GetBiersServices");
     }
 
-    public static void startActionBears(Context context) {
+    public static void startActionBears(Context context)
+    {
         Toast.makeText(context,context.getString(R.string.dl),Toast.LENGTH_LONG).show();
-
         Intent intent = new Intent(context, GetBiersServices.class);
         context.startService(intent);
-
         //Toast.makeText(context,context.getString(R.string.finish),Toast.LENGTH_LONG).show();
-
     }
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
-            handleActionBears();
 
+
+    @Override
+    protected void onHandleIntent(Intent intent)
+    {
+        if (intent != null)
+        {
+            handleActionBears();
             LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(intent));
         }
     }
 
-    private void copyInputStreamToFile(InputStream in, File file) {
-        try {
+    private void copyInputStreamToFile(InputStream in, File file)
+    {
+        try
+        {
             OutputStream out = new FileOutputStream(file);
             byte[] buf = new byte[1024];
             int len;
-            while((len=in.read(buf))>0) {
+            while((len=in.read(buf))>0)
+            {
                 out.write(buf,0,len);
             }
             out.close();
             in.close();
-
-        }catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
-
         }
     }
 
-    private void handleActionBears() {
+    private void handleActionBears()
+    {
         Log.d(TAG, "Thread service name:" + Thread.currentThread().getName());
         URL url = null;
-        try {
+        try
+        {
             url = new URL("http://binouze.fabrigli.fr/bieres.json");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
-            if (HttpURLConnection.HTTP_OK == conn.getResponseCode()) {
+            if (HttpURLConnection.HTTP_OK == conn.getResponseCode())
+            {
                 //en broadcast receiver + o n toast avant getservices du main
-              //  Toast.makeText(Main2Activity,getString(R.string.dl), Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity,getString(R.string.dl), Toast.LENGTH_LONG).show();
                 copyInputStreamToFile(conn.getInputStream(), new File(getCacheDir(), "bieres.json"));
                 Log.d(TAG, "Bieres json downloaded !");
                // Toast.makeText(Main2Activity.class,getString(R.string.finish), Toast.LENGTH_LONG).show();
             }
-        } catch (MalformedURLException e) {
+        }
+        catch (MalformedURLException e)
+        {
             e.printStackTrace();
-        } catch (IOException f) {
+        }
+        catch (IOException f)
+        {
             f.printStackTrace();
         }
     }

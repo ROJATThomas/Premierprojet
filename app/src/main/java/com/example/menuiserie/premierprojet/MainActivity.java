@@ -34,11 +34,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity2main);
         GetBiersServices.startActionBears(this);
-        //
+
         IntentFilter intentFilter = new  IntentFilter(BIERS_UPDATE);
-        Toast.makeText(MainActivity.this,getString(R.string.app_name),Toast.LENGTH_LONG).show();
+        //Toast.makeText(MainActivity.this,getString(R.string.app_name),Toast.LENGTH_LONG).show();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(new BierUpdate(),intentFilter);
         Toast.makeText(MainActivity.this,getString(R.string.finish),Toast.LENGTH_LONG).show();
@@ -82,32 +81,39 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
-            case R.id.aa :
-                Toast.makeText(MainActivity.this,getString(R.string.String),Toast.LENGTH_LONG).show();
+            case R.id.changeActivity :
+                //Toast.makeText(MainActivity.this,getString(R.string.String),Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, DisplayMessageActivity.class);
+                EditText editText = (EditText) findViewById(R.id.edit_message);
+                String message = editText.getText().toString();
+                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
                 break;
 
-            case R.id.bb :
+            case R.id.quitApp :
+                /*
                 NotificationCompat.Builder mBuilder =
                         new NotificationCompat.Builder(this).setSmallIcon(android.R.drawable.sym_def_app_icon).setContentTitle("My notification")
                                 .setContentText("hello");
                 NotificationManager manager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-                manager.notify(0, mBuilder.build());
+                manager.notify(0, mBuilder.build());*/
+                System.exit(0);
                 break;
 
-            case R.id.cc :
+           /* case R.id.cc :
 
                 GetBiersServices.startActionBears(getApplicationContext());
 
-                break;
+                break;*/
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public class BierUpdate extends BroadcastReceiver {
-
-
+    public class BierUpdate extends BroadcastReceiver
+    {
         @Override
-        public void onReceive(Context context, Intent intent){
+        public void onReceive(Context context, Intent intent)
+        {
             Toast.makeText(context,context.getString(R.string.dl),Toast.LENGTH_LONG).show();
             ((BiersAdapter) rv.getAdapter()).setNewBiere(getBiersFromFile());
         }
