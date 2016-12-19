@@ -6,6 +6,7 @@
         android:id="@+id/changeActivity"
         android:orderInCategory="100"
         android:title="Voir le panier"
+
         app:showAsAction="never" />
     <item
         android:id="@+id/quitApp"

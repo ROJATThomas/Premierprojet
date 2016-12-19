@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder>
@@ -31,28 +32,48 @@ public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder>
         return view;
     }
 
+    private static int m = 0;
 
-    public JSONArray biers;
+     public static  int getM(){
+         return m;
+     }
+    private JSONArray biers;
+     private String text;
     private JSONObject o;
 
-     private HashMap<String,Integer> quantity;
-     private HashMap<String,Integer> panier;
+     private static HashMap<String,Integer> quantity;
+     private static HashMap<String,Integer> panier;
+
+
+
+     public static HashMap<String,Integer> getPanier(){
+         return panier;
+     }
+
+     public static void setPanier(HashMap<String,Integer> pnr){
+         panier = pnr;
+     }
+
+
 
 
      ArrayList<Integer> listprice;
 
-    public BiersAdapter(JSONArray js)
-    {
-        this.biers=js;
-        quantity = new HashMap<String,Integer>();
-        panier = new HashMap<String,Integer>();
-        listprice = new ArrayList<>();
-        listprice.add(0,3);
-        listprice.add(1,4);
-        listprice.add(2,5);
-        listprice.add(3,6);
+    public BiersAdapter(JSONArray js) {
+     this.biers=js;
+     quantity = new HashMap<String,Integer>();
+     panier = new HashMap<String,Integer>();
+     listprice = new ArrayList<>();
+     listprice.add(0,3);
+     listprice.add(1,4);
+     listprice.add(2,5);
+     listprice.add(3,6);
 
     }
+
+     public BiersAdapter(String js) {
+        this.text = js;
+     }
 
     public void setNewBiere( JSONArray biers)
     {
@@ -81,6 +102,8 @@ public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder>
             o = (JSONObject) biers.get(position);
             String name = o.getString("name");
             holder.name.setText(name);
+
+            //holder.name.setText(text);
             Random r = new Random();
             int randomValue = r.nextInt(4-0) + 4; //valeur aléatoire du prix d'une bière
             holder.spinbier.setTag(name);
@@ -108,7 +131,8 @@ public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder>
          public TextView price;
          public Button btnajt;
          public Spinner spinbier;
-         public int j = 0;
+         Button buttonpanier ;
+        // public int j = 0;
 
 
          public BierHolder(View itemView)
@@ -117,6 +141,7 @@ public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder>
              name = (TextView) itemView.findViewById(R.id.rv_bier_element_name);
              btnajt = (Button) itemView.findViewById(R.id.btnajouter);
              price = (TextView) itemView.findViewById(R.id.price);
+             buttonpanier = (Button) itemView.findViewById(R.id.panierbutton);
 
 
              //btnajt.setEnabled(false);
@@ -141,8 +166,6 @@ public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder>
                      Spinner sp = (Spinner) parent;
                      String biername = (String) sp.getTag();
                      quantity.put(biername,position+1);
-
-
 
                  }
 
@@ -177,6 +200,18 @@ public class BiersAdapter extends RecyclerView.Adapter<BiersAdapter.BierHolder>
                  }
              });
 
+            /* buttonpanier.setOnClickListener(new View.OnClickListener()
+             {
+                 @Override
+                 public void onClick(View v)
+                 {
+
+                       MainActivity act = new MainActivity();
+                        act.changeActivity(v);
+
+                 }
+             });
+*/
          }
      }
 

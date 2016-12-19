@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">BierShop</string>
     <string name="action_settings">Settings</string>
+    <string name="buttonname">Panier</string><!--ajouté pour activity-->
     <string name="String">CoursAndroid</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="hello_round">Hello Round World!</string>

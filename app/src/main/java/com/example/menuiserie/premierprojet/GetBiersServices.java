@@ -39,6 +39,19 @@ public class GetBiersServices extends IntentService
         //Toast.makeText(context,context.getString(R.string.finish),Toast.LENGTH_LONG).show();
     }
 
+    /*public static void toasterChoice(Context context)
+    {
+        String message = "ahah";
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(context, GetBiersServices.class);
+        context.startService(intent);
+        //Toast.makeText(context,context.getString(R.string.finish),Toast.LENGTH_LONG).show();
+    }*/
+
+    /*public static Context getContext(Context context){
+        context.getApplicationContext();
+        return context;
+    }*/
 
 
     @Override
@@ -84,7 +97,7 @@ public class GetBiersServices extends IntentService
             if (HttpURLConnection.HTTP_OK == conn.getResponseCode())
             {
                 //en broadcast receiver + o n toast avant getservices du main
-                //Toast.makeText(MainActivity,getString(R.string.dl), Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.this,getString(R.string.dl), Toast.LENGTH_LONG).show();
                 copyInputStreamToFile(conn.getInputStream(), new File(getCacheDir(), "bieres.json"));
                 Log.d(TAG, "Bieres json downloaded !");
                // Toast.makeText(Main2Activity.class,getString(R.string.finish), Toast.LENGTH_LONG).show();
