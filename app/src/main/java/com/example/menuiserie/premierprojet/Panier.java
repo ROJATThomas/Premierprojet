@@ -39,6 +39,7 @@ public class Panier extends MainActivity{
         // String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         TextView textView = new TextView(this);
         textView.setTextSize(40);
+        //
         //textView.setText("ahah");
         rv = (RecyclerView) findViewById(R.id.rv_panier);
         rv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
